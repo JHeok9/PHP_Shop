@@ -3,7 +3,7 @@ CREATE TABLE user
 (
   seq          int(11)      NOT NULL AUTO_INCREMENT COMMENT '고유번호',
   id           varchar(50)  NOT NULL UNIQUE COMMENT '아이디',
-  password     VARCHAR(50)  NOT NULL COMMENT '비밀번호',
+  password     VARCHAR(255)  NOT NULL COMMENT '비밀번호',
   name         VARCHAR(255) NOT NULL COMMENT '이름',
   nickname     VARCHAR(255) NOT NULL COMMENT '닉네임',
   phone_number VARCHAR(15)  NOT NULL COMMENT '핸드폰',
