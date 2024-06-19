@@ -5,9 +5,9 @@ require_once "include/header.php";
     <main>
         <section class="login-form">
             <h1>Login</h1>
-            <form action="../user/login_process.php" method="POST">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="id" required>
+            <form id="loginForm" action="../user/login.php" method="POST">
+                <label for="id">Username:</label>
+                <input type="text" id="id" name="id" required>
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
                 <button type="submit">Login</button>

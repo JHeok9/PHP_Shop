@@ -6,8 +6,8 @@ require_once "include/header.php";
         <section class="register-form">
             <h1>회원가입</h1>
             <form id="registerForm" action="../user/join_user.php" method="POST">
-                <label for="username">아이디:</label>
-                <input type="text" id="username" name="id" required>
+                <label for="id">아이디:</label>
+                <input type="text" id="id" name="id" required>
 
                 <label for="password">비밀번호:</label>
                 <input type="password" id="password" name="password" required>
