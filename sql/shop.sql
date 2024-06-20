@@ -40,3 +40,17 @@ values(3, '기가막힌 쫀쫀이 양말', '801995393766375-e3ac3a4f-87d1-47a3-a
 commit;
 select * from item;
 
+
+-- 장바구니
+select * from cart;
+delete from cart where seq=1;
+ALTER TABLE cart AUTO_INCREMENT = 1;
+
+
+select i.*
+  from cart c left join item i
+    on c.item_seq = i.seq
+ where c.user_seq = 1;
+
+
+

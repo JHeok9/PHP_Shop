@@ -1,4 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    // 로그인 여부에 따라 로그인/로그아웃 변경
+    const loginLogout = document.getElementById('login-logout');
+    const userId = sessionStorage.getItem('user_id');
+    if (userId) {
+        loginLogout.innerHTML = '<a href="logout.php">Logout</a>';
+    }
+    // 장바구니 페이지가 로드될 때
+    if (window.location.pathname.includes('cart.php')) {
+        console.log("123");
+        loadCart();
+    }
+    
     /* -------------------------- 회원가입 -------------------------- */
     const registerForm = document.getElementById('registerForm');
     if (registerForm) {
@@ -77,20 +90,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const userId = sessionStorage.getItem('user_id');
     const loginNavLink = document.querySelector('nav ul li a[href="login.php"]');
-    
+
     if (userId && loginNavLink) {
         loginNavLink.textContent = 'Logout';
         loginNavLink.href = '#'; // 로그아웃 기능을 위해 링크 제거
-        loginNavLink.addEventListener('click', function(event) {
+        loginNavLink.addEventListener('click', function (event) {
             event.preventDefault();
             sessionStorage.removeItem('user_id');
             alert('로그아웃 성공');
             window.location.reload();
         });
     }
-    
+
 
     /* -------------------------- 메인페이지 상품 리스트 -------------------------- */
     fetch('../item/item_list.php')
@@ -202,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 fetch(`../cart/set_cart.php?user=${userId}&item=${itemId}`)
                     .then(response => response.json())
                     .then(data => {
-                        if(data.status === 'success'){
+                        if (data.status === 'success') {
                             alert('장바구니 담기 성공');
                         } else {
                             alert('오류가 발생했습니다.');
@@ -218,7 +230,100 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 장바구니 가져오기
+    
+
+    // 장바구니 데이터 가져오기
+    function loadCart() {
+        const userId = sessionStorage.getItem('user_id');
+        if (!userId) {
+            document.getElementById('cart-items').innerHTML = '<p>로그인이 필요합니다.</p>';
+            return;
+        }
+
+        fetch(`../cart/get_cart.php?user=${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length === 0) {
+                    document.getElementById('cart-items').innerHTML = '<p>장바구니에 상품이 없습니다.</p>';
+                } else {
+                    displayCartItems(data);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching cart data:', error);
+                document.getElementById('cart-items').innerHTML = '<p>장바구니를 불러오는 중 오류가 발생했습니다.</p>';
+            });
+    }
+
+    function displayCartItems(items) {
+        const cartItemsContainer = document.getElementById('cart-items');
+        cartItemsContainer.innerHTML = '';
+    
+        items.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('cart-item');
+    
+            const img = document.createElement('img');
+            img.src = "../item_img/" + item.img1;
+            img.alt = item.name;
+    
+            const h3 = document.createElement('h3');
+            h3.textContent = item.name;
+    
+            const p = document.createElement('p');
+            const salePrice = Math.ceil(item.price * item.sale);
+            const formattedPrice = new Intl.NumberFormat('ko-KR').format(salePrice);
+            p.textContent = `${formattedPrice}원`;
+    
+            const buyButton = document.createElement('button');
+            buyButton.textContent = '구매';
+            buyButton.className = 'buy-button';
+            buyButton.addEventListener('click', () => {
+                window.location.href = `../view/purchase.php?cart_id=${item.cart_id}`;
+            });
+    
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = '삭제';
+            deleteButton.className = 'delete-button';
+            deleteButton.addEventListener('click', () => {
+                removeFromCart(item.cart_id);
+            });
+    
+            // 아이템 이름 클릭 시 상품 상세 페이지로 이동
+            h3.addEventListener('click', () => {
+                window.location.href = `../view/item.php?id=${item.seq}`;
+            });
+    
+            itemDiv.appendChild(img);
+            itemDiv.appendChild(h3);
+            itemDiv.appendChild(p);
+            itemDiv.appendChild(buyButton);
+            itemDiv.appendChild(deleteButton);
+    
+            cartItemsContainer.appendChild(itemDiv);
+        });
+    }
+    
+    
+
+    function removeFromCart(cartId) {
+        fetch(`../cart/remove_cart.php?cart_id=${cartId}`, {
+            method: 'POST'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('상품이 장바구니에서 삭제되었습니다.');
+                    location.reload(); // 페이지 새로고침
+                } else {
+                    alert('상품 삭제 중 오류가 발생했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error removing cart item:', error);
+                alert('상품 삭제 중 오류가 발생했습니다.');
+            });
+    }
 
 
 });
