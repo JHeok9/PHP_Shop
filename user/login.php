@@ -1,7 +1,6 @@
 <?php
 require_once "../common/dbconn.php";
 header('Content-Type: application/json'); // 응답 헤더를 JSON 형식으로 설정
-session_start();
 
 // JSON 데이터 읽기
 $input = file_get_contents('php://input');
@@ -23,8 +22,11 @@ try{
     if($row['id'] == $filtered['id']){ // 아이디 일치하는지
         if(password_verify($data['password'], $row['password'])){ // 비밀번호 일치하는지
             // 로그인 성공
-            $_SESSION['user_id'] = $row['seq']; // 세션에 유저 ID 저장
-            $response = array('status' => 'success', 'message' => '회원가입이 성공적으로 완료되었습니다.');
+            $response = array(
+                'status' => 'success', 
+                'message' => '로그인이 성공적으로 완료되었습니다.',
+                'user_id' => $row['seq'] // 회원번호를 응답에 포함
+            );
             echo json_encode($response);
             exit();
         }else {
