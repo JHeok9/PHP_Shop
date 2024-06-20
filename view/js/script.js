@@ -196,6 +196,14 @@ document.addEventListener('DOMContentLoaded', () => {
         addToCartButton.className = 'add-to-cart';
         addToCartButton.textContent = '장바구니 담기';
         infoContainer.appendChild(addToCartButton);
+        
+        const buyButton = document.createElement('button');
+        buyButton.textContent = '구매';
+        buyButton.className = 'item-buy-button';
+        buyButton.addEventListener('click', () => {
+            window.location.href = `../view/purchase.php?cart_id=${item.seq}`;
+        });
+        infoContainer.appendChild(buyButton);
     }
 
     function numberWithCommas(x) {
