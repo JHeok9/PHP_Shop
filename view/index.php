@@ -9,25 +9,8 @@ require_once "include/header.php";
         </section>
         <section class="products">
             <h2>Featured Products</h2>
-            <div class="product-list">
-                <div class="product">
-                    <img src="https://via.placeholder.com/150" alt="Product 1">
-                    <h3>Product 1</h3>
-                    <p>$10.00</p>
-                    <button>Add to Cart</button>
-                </div>
-                <div class="product">
-                    <img src="https://via.placeholder.com/150" alt="Product 2">
-                    <h3>Product 2</h3>
-                    <p>$15.00</p>
-                    <button>Add to Cart</button>
-                </div>
-                <div class="product">
-                    <img src="https://via.placeholder.com/150" alt="Product 3">
-                    <h3>Product 3</h3>
-                    <p>$20.00</p>
-                    <button>Add to Cart</button>
-                </div>
+            <div class="product-list" id="product-list">
+                <!-- Products will be dynamically inserted here -->
             </div>
         </section>
     </main>
