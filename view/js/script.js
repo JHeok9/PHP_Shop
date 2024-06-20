@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const loginNavLink = document.querySelector('nav ul li a[href="login.php"]');
+    const loginNavLink = document.querySelector('#login-logout');
 
     if (userId && loginNavLink) {
         loginNavLink.textContent = 'Logout';
