@@ -59,3 +59,6 @@ select i.name, i.img1, i.price, i.sale
 
 
 
+-- 주문 : 유저정보 상품정보 가져오기
+select a.* from address a left join user u on u.seq = a.user_seq;
+select * from item where seq = 1;
