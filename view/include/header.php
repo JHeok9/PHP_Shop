@@ -12,10 +12,10 @@
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="products.php">Products</a></li>
+                <!-- <li><a href="products.php">Products</a></li> -->
                 <li><a href="cart.php">Cart</a></li>
                 <li><a href="mypage.php">MyPage</a></li>
-                <li><a href="login.php">Login</a></li>
+                <li id="login-logout"><a href="login.php">Login</a></li>
             </ul>
         </nav>
     </header>
