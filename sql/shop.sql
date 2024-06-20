@@ -43,11 +43,16 @@ select * from item;
 
 -- 장바구니
 select * from cart;
-delete from cart where seq=1;
+delete from cart where seq=4;
 ALTER TABLE cart AUTO_INCREMENT = 1;
 
 
-select i.*
+select i.name, i.img1, i.price, i.sale
+  from cart c left join item i
+    on c.item_seq = i.seq
+ where c.user_seq = 1;
+ 
+ select i.*
   from cart c left join item i
     on c.item_seq = i.seq
  where c.user_seq = 1;
