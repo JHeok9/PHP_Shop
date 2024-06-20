@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // 장바구니 페이지가 로드될 때
     if (window.location.pathname.includes('cart.php')) {
-        console.log("123");
         loadCart();
     }
     
@@ -201,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         buyButton.textContent = '구매';
         buyButton.className = 'item-buy-button';
         buyButton.addEventListener('click', () => {
-            window.location.href = `../view/purchase.php?cart_id=${item.seq}`;
+            window.location.href = `../view/order.php?cart_id=${item.seq}`;
         });
         infoContainer.appendChild(buyButton);
     }
@@ -287,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
             buyButton.textContent = '구매';
             buyButton.className = 'buy-button';
             buyButton.addEventListener('click', () => {
-                window.location.href = `../view/purchase.php?cart_id=${item.cart_id}`;
+                window.location.href = `../view/order.php?cart_id=${item.seq}`;
             });
     
             const deleteButton = document.createElement('button');
@@ -313,24 +312,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     
-
+    // 장바구니 삭제
     function removeFromCart(cartId) {
-        fetch(`../cart/remove_cart.php?cart_id=${cartId}`, {
-            method: 'POST'
+        fetch('../cart/remove_cart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ cart_id: cartId })
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    alert('상품이 장바구니에서 삭제되었습니다.');
-                    location.reload(); // 페이지 새로고침
-                } else {
-                    alert('상품 삭제 중 오류가 발생했습니다.');
-                }
-            })
-            .catch(error => {
-                console.error('Error removing cart item:', error);
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert('상품이 장바구니에서 삭제되었습니다.');
+                location.reload(); // 페이지 새로고침
+            } else {
                 alert('상품 삭제 중 오류가 발생했습니다.');
-            });
+            }
+        })
+        .catch(error => {
+            console.error('Error removing cart item:', error);
+            alert('상품 삭제 중 오류가 발생했습니다.');
+        });
     }
 
 

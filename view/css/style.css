@@ -329,3 +329,64 @@ button.delete-button {
 button.delete-button:hover {
     background-color: #c82333; /* 마우스 호버 시 색상을 진한 빨간색으로 변경 */
 }
+
+.purchase-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.product-details {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.purchase-form {
+    flex: 1;
+}
+
+.item-images {
+    margin-bottom: 20px;
+}
+
+.item-images img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+
+.item-info {
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.purchase-form form {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin: auto;
+}
+
+.purchase-form label {
+    margin-bottom: 5px;
+}
+
+.purchase-form input[type="number"],
+.purchase-form button {
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 1rem;
+}
+
+.purchase-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.purchase-form button:hover {
+    background-color: #0056b3;
+}
