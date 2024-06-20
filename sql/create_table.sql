@@ -159,3 +159,22 @@ ALTER TABLE review
     REFERENCES user (seq);
 
 
+
+-- 장바구니 테이블
+CREATE TABLE cart
+(
+  seq      int(11) NOT NULL AUTO_INCREMENT COMMENT '고유번호',
+  user_seq int(11) NOT NULL COMMENT '회원고유번호',
+  item_seq int(11) NOT NULL COMMENT '상품고유번호',
+  PRIMARY KEY (seq)
+) COMMENT '장바구니';
+
+ALTER TABLE cart
+  ADD CONSTRAINT FK_user_TO_cart
+    FOREIGN KEY (user_seq)
+    REFERENCES user (seq);
+
+ALTER TABLE cart
+  ADD CONSTRAINT FK_item_TO_cart
+    FOREIGN KEY (item_seq)
+    REFERENCES item (seq);
