@@ -4,13 +4,14 @@ header('Content-Type: application/json'); // 응답 헤더를 JSON 형식으로 
 
 $user_seq = mysqli_real_escape_string($conn, $_GET['user']);
 
-$sql = "select i.* from cart c left join item i on c.item_seq = i.seq where c.user_seq = $user_seq";
+$sql = "select c.seq as cart_id, i.* from cart c left join item i on c.item_seq = i.seq where c.user_seq = $user_seq";
 
 try{
     $result = mysqli_query($conn, $sql);
     $cart_list = array();
     while($row = mysqli_fetch_assoc($result)){
         $item = array(
+            'cart_id' => $row['cart_id'],
             'seq' => $row['seq'],
             'name' => $row['name'],
             'img1' => $row['img1'],
