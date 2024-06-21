@@ -32,5 +32,5 @@ set_cart.php : 장바구니 담기
 remove_cart.php : 장바구니 삭제
 
 #### order
-order_data.php : 유저주소, 상품정보 반환
-order.php : 주문
+- order_data.php : 유저주소, 상품정보 반환
+- order.php : 주문
