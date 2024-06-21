@@ -9,7 +9,8 @@
 - Backend : PHP
 - 로그인정보 JS Session Storage 저장
 
-#### view
+
+### view
 - index.php : 메인 페이지
 - login.php : 로그인 페이지
 - join.php : 회원가입 페이지
@@ -18,6 +19,8 @@
 - order.php : 주문 페이지
 - main.js : 서버통신 후 데이터 표출
 
+
+### Sever
 #### user
 - join_user.php : 회원가입
 - login.php : 로그인
