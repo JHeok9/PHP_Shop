@@ -434,3 +434,29 @@ button.delete-button:hover {
 #confirm-order:hover {
     background: #0056b3;
 }
+
+.content-container {
+    padding: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.order {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.order:last-child {
+    border-bottom: none;
+}
+
+.order p {
+    margin: 5px 0;
+}
+
+#orders-list {
+    max-width: 600px;
+    margin: 0 auto;
+}

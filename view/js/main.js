@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.location.pathname.includes('index.php')) {
             loadProductList();
         }
+        if (window.location.pathname.includes('mypage.php')) {
+            loadUserInfo();
+        }
     }
 
     /* -------------------------- 로그인/로그아웃 -------------------------- */
@@ -454,4 +457,148 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* -------------------------- 마이 페이지 -------------------------- */
+    function loadUserInfo() {
+        const userId = sessionStorage.getItem('user_id');
+        if (!userId) {
+            alert('Invalid access. Missing user ID or item ID.');
+            return;
+        }
+
+        loadProfile(userId);
+
+        document.getElementById('show-profile').addEventListener('click', (e) => {
+            e.preventDefault();
+            showSection('profile-container');
+            loadProfile(userId);
+        });
+    
+        document.getElementById('show-orders').addEventListener('click', (e) => {
+            e.preventDefault();
+            showSection('orders-container');
+            loadOrders(userId);
+        });
+    
+        document.getElementById('show-addresses').addEventListener('click', (e) => {
+            e.preventDefault();
+            showSection('addresses-container');
+            loadAddresses(userId);
+        });
+    }
+
+    function showSection(sectionId) {
+        const sections = document.querySelectorAll('.content-container');
+        sections.forEach(section => {
+            if (section.id === sectionId) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+            }
+        });
+    }
+
+    function loadProfile(userSeq) {
+        const requestData = {
+            user_seq: userSeq
+        };
+
+        fetch('../mypage/user_info.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                user_ifno = data.user_info
+                document.getElementById('user-id').textContent = `아이디: ${user_ifno.id}`;
+                document.getElementById('user-name').textContent = `이름: ${user_ifno.name}`;
+                document.getElementById('user-phone_number').textContent = `전화번호: ${user_ifno.phone_number}`;
+            } else {
+                alert('Error.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error processing your request.');
+        });
+    }
+    
+    function loadOrders(userSeq) {
+        const requestData = {
+            user_seq: userSeq
+        };
+
+        fetch(`../mypage/orders.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                const ordersList = document.getElementById('orders-list');
+                ordersList.innerHTML = '';
+                data.orders.forEach(order => {
+                    const orderDiv = document.createElement('div');
+                    orderDiv.classList.add('order');
+    
+                    const orderName = document.createElement('p');
+                    orderName.textContent = `상품명: ${order.name}`;
+    
+                    const orderDate = document.createElement('p');
+                    orderDate.textContent = `주문날짜: ${order.order_date}`;
+    
+                    const orderPrice = document.createElement('p');
+                    orderPrice.textContent = `가격: ${order.price}원`;
+                    
+                    const orderStatus = document.createElement('p');
+                    orderStatus.textContent = `주문상태: ${order.status}`;
+                    
+                    orderDiv.appendChild(orderName);
+                    orderDiv.appendChild(orderDate);
+                    orderDiv.appendChild(orderPrice);
+                    orderDiv.appendChild(orderStatus);
+    
+                    ordersList.appendChild(orderDiv);
+                });
+            })
+            .catch(error => console.error('Error loading orders:', error));
+    }
+    
+    function loadAddresses(userSeq) {
+         const requestData = {
+            user_seq: userSeq
+        };
+
+        fetch(`../mypage/addresses.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                const addressesList = document.getElementById('addresses-list');
+                addressesList.innerHTML = '';
+                data.addresses.forEach(address => {
+                    const addressDiv = document.createElement('div');
+                    addressDiv.classList.add('address');
+    
+                    const addressDetails = document.createElement('p');
+                    addressDetails.textContent = `${address.addr} ${address.addr_detail}, ${address.addr_num}`;
+    
+                    addressDiv.appendChild(addressDetails);
+    
+                    addressesList.appendChild(addressDiv);
+                });
+            })
+            .catch(error => console.error('Error loading addresses:', error));
+    }
+
+
+
 });
