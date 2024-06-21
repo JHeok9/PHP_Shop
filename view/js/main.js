@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadUserInfo();
         }
         if (window.location.pathname.includes('admin.php')) {
-            
+            loadAdminOrders();
         }
     }
 
@@ -613,5 +613,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+
+    /* -------------------------- 관리자 페이지 -------------------------- */
+    // 주문현황
+    function loadAdminOrders() {
+        fetch(`../admin/orders.php`)
+            .then(response => response.json())
+            .then(data => {
+                const adminOrders = document.getElementById('admin-orders');
+                adminOrders.innerHTML = ''; // Clear existing content
+    
+                data.forEach(order => {
+                    let html = '<tr>';
+                    html += `<td>${order.seq}</td>`;
+                    html += `<td>${order.id}</td>`;
+                    html += `<td>${order.name}</td>`;
+                    html += `<td>${order.price}</td>`;
+                    html += `<td>${order.addr} ${order.addr_detail}</td>`;
+                    html += `<td>${order.order_date}</td>`;
+                    html += `<td>${order.status}</td>`;
+                    html += '</tr>';
+    
+                    adminOrders.insertAdjacentHTML('beforeend', html);
+                });
+            })
+            .catch(error => console.error('Error loading orders:', error));
+    }
+
+    // 상품등록
+    
 
 });

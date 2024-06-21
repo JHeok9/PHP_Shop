@@ -62,3 +62,24 @@ select i.name, i.img1, i.price, i.sale
 -- 주문 : 유저정보 상품정보 가져오기
 select * from address where user_seq = 1;
 select * from item where seq = 1;
+
+select * from orders;
+select * from order_detail;
+
+select * from orders o left join order_detail od on o.seq = od.order_seq where o.user_seq = 1;
+
+select i.name, o.order_date, o.price, o.status
+  from orders o left join order_detail od 
+    on o.seq = od.order_seq left join item i
+    on od.item_seq = i.seq
+ where o.user_seq = 1;
+ 
+ 
+ -- 관리자 주문목록
+select o.seq, u.id, i.name, o.price, a.addr_num, a.addr, a.addr_detail, o.order_date, o.status
+  from orders o left join user u
+    on o.user_seq = u.seq left join order_detail od
+    on o.seq = od.order_seq left join item i
+    on od.item_seq = i.seq left join address a
+    on o.addr_seq = a.seq
+order by o.order_date desc;
