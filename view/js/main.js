@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
-                            sessionStorage.setItem('user_id', data.user_id); // user_id를 세션 스토리지에 저장
+                            sessionStorage.setItem('user_id', data.user_seq);
                             alert('로그인 성공');
                             window.location.href = '../view/index.php';
                         } else {
@@ -451,4 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('주문 중 오류가 발생했습니다.');
         });
     }
+
+
+    /* -------------------------- 마이 페이지 -------------------------- */
 });

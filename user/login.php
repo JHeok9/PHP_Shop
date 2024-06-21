@@ -25,7 +25,7 @@ try{
             $response = array(
                 'status' => 'success', 
                 'message' => '로그인이 성공적으로 완료되었습니다.',
-                'user_id' => $row['seq'] // 회원번호를 응답에 포함
+                'user_seq' => $row['seq'] // 회원번호를 응답에 포함
             );
             echo json_encode($response);
             exit();
