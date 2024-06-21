@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.location.pathname.includes('admin.php')) {
             loadAdminOrders();
         }
+        if (window.location.pathname.includes('addItem.php')) {
+            addItem();
+        }
     }
 
     /* -------------------------- 로그인/로그아웃 -------------------------- */
@@ -641,6 +644,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 상품등록
+    function addItem(){
+        const productRegistrationForm = document.getElementById('product-registration-form');
+        productRegistrationForm.addEventListener('submit', function(event) {
+            event.preventDefault();
     
+            const formData = new FormData(productRegistrationForm);
+    
+            fetch('../admin/add_item.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('상품이 성공적으로 등록되었습니다.');
+                    productRegistrationForm.reset();
+                } else {
+                    alert('1111상품 등록 중 오류가 발생했습니다: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('222상품 등록 중 오류가 발생했습니다.');
+            });
+        });
+
+    }
+
 
 });
