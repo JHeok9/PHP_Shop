@@ -1,21 +1,18 @@
 <?php
 require_once "include/header.php";
 ?>
-   <main class="purchase-container">
-        <section class="product-details">
-            <h2>상품 상세 정보</h2>
-            <div id="item-images" class="item-images"></div>
-            <div id="item-info" class="item-info"></div>
-        </section>
-
-        <section class="purchase-form">
-            <h2>구매 정보 입력</h2>
-            <form id="purchaseForm" action="../checkout/process_purchase.php" method="POST">
-                <input type="hidden" id="itemId" name="item_id">
-                <label for="quantity">수량:</label>
-                <input type="number" id="quantity" name="quantity" min="1" required>
-                <button type="submit">구매하기</button>
-            </form>
-        </section>
-    </main>
+    <div id="order-container">
+        <div id="user-info">
+            <h2>사용자 정보</h2>
+            <p id="user-name"></p>
+            <p id="user-address"></p>
+        </div>
+        <div id="item-info">
+            <h2>상품 정보</h2>
+            <img style="width: 300px;" id="order-item-image" src="" alt="상품 이미지">
+            <p id="item-name"></p>
+            <p id="item-price"></p>
+        </div>
+        <button id="confirm-order">주문 확인</button>
+    </div>
 <?php require_once "include/footer.php"; ?>
