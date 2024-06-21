@@ -37,3 +37,8 @@
 #### order
 - order_data.php : 유저주소, 상품정보 반환
 - order.php : 주문
+
+#### mypage
+- addresses.php : 배송지 목록
+- orders.php : 주문목록
+- user_info.php 회원정보

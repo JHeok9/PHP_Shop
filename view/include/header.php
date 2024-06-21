@@ -16,6 +16,7 @@
                 <li><a href="cart.php">Cart</a></li>
                 <li><a href="mypage.php">MyPage</a></li>
                 <li id="login-logout"><a href="login.php">Login</a></li>
+                <li id="reAdmin"></li>
             </ul>
         </nav>
     </header>

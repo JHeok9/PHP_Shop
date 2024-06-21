@@ -8,6 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const userId = sessionStorage.getItem('user_id');
         if (userId) {
             loginLogout.innerHTML = '<a href="logout.php">Logout</a>';
+
+            if(userId === '1'){
+                const adminLi = document.getElementById('reAdmin');
+                const headerA = document.createElement('a');
+                headerA.innerText = "admin";
+                headerA.href = "admin.php";
+                
+                adminLi.appendChild(headerA);
+            }
+
             setupLogout();
         }
     }
@@ -33,6 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (window.location.pathname.includes('mypage.php')) {
             loadUserInfo();
+        }
+        if (window.location.pathname.includes('admin.php')) {
+            
         }
     }
 
