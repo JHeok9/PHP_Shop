@@ -390,3 +390,47 @@ button.delete-button:hover {
 .purchase-form button:hover {
     background-color: #0056b3;
 }
+
+#order-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+}
+
+#order-container h2 {
+    margin-top: 0;
+}
+
+#user-info, #item-info {
+    margin-bottom: 20px;
+}
+
+#user-info p, #item-info p {
+    margin: 5px 0;
+}
+
+#item-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+}
+
+#confirm-order {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#confirm-order:hover {
+    background: #0056b3;
+}

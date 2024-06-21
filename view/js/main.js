@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
         buyButton.textContent = '구매';
         buyButton.className = 'item-buy-button';
         buyButton.addEventListener('click', () => {
-            window.location.href = `../view/order.php?cart_id=${item.seq}`;
+            window.location.href = `../view/order.php?item_id=${item.seq}`;
         });
         infoContainer.appendChild(buyButton);
     }
@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
             buyButton.textContent = '구매';
             buyButton.className = 'buy-button';
             buyButton.addEventListener('click', () => {
-                window.location.href = `../view/order.php?cart_id=${item.seq}`;
+                window.location.href = `../view/order.php?item_id=${item.seq}`;
             });
 
             const deleteButton = document.createElement('button');
@@ -367,6 +367,88 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* -------------------------- 주문 페이지 -------------------------- */
     function loadOrderPage() {
-        // 주문 페이지 로드 함수 로직 작성
+        const userId = sessionStorage.getItem('user_id');
+        const urlParams = new URLSearchParams(window.location.search);
+        const itemId = urlParams.get('item_id');
+
+        if (!userId || !itemId) {
+            alert('Invalid access. Missing user ID or item ID.');
+            return;
+        }
+
+        fetchOrderData(userId, itemId);
+    }
+
+    function fetchOrderData(userSeq, itemSeq) {
+        const requestData = {
+            user_seq: userSeq,
+            item_seq: itemSeq
+        };
+
+        fetch('../order/order_data.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                displayOrderData(data);
+            } else {
+                alert('Error fetching order data.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error processing your request.');
+        });
+    }
+
+    function displayOrderData(data) {
+        const userInfo = data.address;
+        const itemInfo = data.item;
+
+        document.getElementById('user-name').textContent = userInfo.name;
+        document.getElementById('user-address').textContent = `${userInfo.addr} ${userInfo.addr_detail} ${userInfo.addr_num}`;
+
+        document.getElementById('order-item-image').src = `../item_img/${itemInfo.img1}`;
+        document.getElementById('item-name').textContent = itemInfo.name;
+        document.getElementById('item-price').textContent = `${new Intl.NumberFormat('ko-KR').format(Math.ceil(itemInfo.price * itemInfo.sale))}원`;
+
+        document.getElementById('confirm-order').addEventListener('click', () => {
+            confirmOrder(userInfo, itemInfo);
+        });
+    }
+
+    function confirmOrder(userInfo, itemInfo) {
+        const orderData = {
+            user_seq: userInfo.user_seq,
+            addr_seq: userInfo.seq,
+            item_seq: itemInfo.seq,
+            price: Math.ceil(itemInfo.price * itemInfo.sale),
+        };
+
+        fetch('../order/order.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert('주문이 확인되었습니다!');
+                window.location.href = 'index.php';
+            } else {
+                alert('주문 중 오류가 발생했습니다.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('주문 중 오류가 발생했습니다.');
+        });
     }
 });
