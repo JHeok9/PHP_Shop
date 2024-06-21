@@ -27,9 +27,9 @@
 - item_detail.php : 상품 상세
 
 #### cart
-get_cart.php : 장바구니 리스트
-set_cart.php : 장바구니 담기
-remove_cart.php : 장바구니 삭제
+- get_cart.php : 장바구니 리스트
+- set_cart.php : 장바구니 담기
+- remove_cart.php : 장바구니 삭제
 
 #### order
 - order_data.php : 유저주소, 상품정보 반환
