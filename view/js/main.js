@@ -50,6 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.location.pathname.includes('addItem.php')) {
             addItem();
         }
+        if (window.location.pathname.includes('modifyItemList.php')) {
+            modifyItemList();
+        }
+        if (window.location.pathname.includes('modifyItem.php')) {
+            modifyItemInfo();
+            modifyItem();
+            deleteItem();
+        }
     }
 
     /* -------------------------- 로그인/로그아웃 -------------------------- */
@@ -661,7 +669,98 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('상품이 성공적으로 등록되었습니다.');
                     productRegistrationForm.reset();
                 } else {
-                    alert('1111상품 등록 중 오류가 발생했습니다: ' + data.message);
+                    alert('상품 등록 중 오류가 발생했습니다');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('상품 등록 중 오류가 발생했습니다.');
+            });
+        });
+
+    }
+
+    // 상품수정
+    // 상품 리스트
+    function modifyItemList(){
+        fetch('../item/item_list.php')
+            .then(response => response.json())
+            .then(items => {
+                const productList = document.getElementById('product-list');
+                productList.innerHTML = '';
+
+                items.forEach(item => {
+                    const productDiv = document.createElement('div');
+                    productDiv.classList.add('product');
+
+                    const img = document.createElement('img');
+                    img.src = "../item_img/" + item.img1;
+                    img.alt = item.name;
+
+                    const h3 = document.createElement('h3');
+                    h3.textContent = item.name;
+
+                    const p = document.createElement('p');
+                    const salePrice = Math.ceil(item.price * item.sale);
+                    const formattedPrice = new Intl.NumberFormat('ko-KR').format(salePrice);
+                    p.textContent = `${formattedPrice}원`;
+
+                    productDiv.appendChild(img);
+                    productDiv.appendChild(h3);
+                    productDiv.appendChild(p);
+
+                    productDiv.addEventListener('click', () => {
+                        window.location.href = `modifyItem.php?id=${item.seq}`;
+                    });
+
+                    productList.appendChild(productDiv);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching products:', error);
+            });
+    }
+
+    // 수정상품 정보 가져오기
+    function modifyItemInfo(){
+        const searchParams = new URLSearchParams(location.search);
+        const itemId = searchParams.get('id');
+
+        fetch(`../item/item_detail.php?id=${itemId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('seq').value = data.seq;
+                document.getElementById('old_img1').value = data.img1;
+                document.getElementById('old_img2').value = data.img2;
+                document.getElementById('category_seq').value = data.category_seq;
+                document.getElementById('name').value = data.name;
+                document.getElementById('price').value = data.price;
+                document.getElementById('sale').value = data.sale;
+                document.getElementById('cnt').value = data.cnt;
+            })
+            .catch(error => {
+                console.error('Error fetching item data:', error);
+            });
+    }
+    // 상품 수정
+    function modifyItem(){
+        const productRegistrationForm = document.getElementById('product-registration-form');
+        productRegistrationForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            const formData = new FormData(productRegistrationForm);
+    
+            fetch('../admin/modify_item.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('상품이 성공적으로 수정되었습니다.');
+                    window.location.href = '../view/modifyItemList.php';
+                } else {
+                    alert('111상품 등록 중 오류가 발생했습니다');
                 }
             })
             .catch(error => {
@@ -669,8 +768,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('222상품 등록 중 오류가 발생했습니다.');
             });
         });
-
     }
-
+    // 상품 삭제
+    function deleteItem(){
+        const deleteItem = document.querySelector('#delete-item');
+        deleteItem.addEventListener('click', function (event) {
+            const productRegistrationForm = document.getElementById('product-registration-form');
+            const formData = new FormData(productRegistrationForm);
+    
+            fetch('../admin/delete_item.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('상품이 성공적으로 삭제되었습니다.');
+                    window.location.href = '../view/modifyItemList.php';
+                } else {
+                    alert('111상품 삭제 중 오류가 발생했습니다');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('222상품 삭제 중 오류가 발생했습니다.');
+            });
+        });
+    }
 
 });

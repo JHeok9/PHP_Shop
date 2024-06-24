@@ -510,3 +510,17 @@ button.delete-button:hover {
 .order p {
     margin: 5px 0;
 }
+
+#delete-item{
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #f30808;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#delete-item:hover{
+    background-color: #f86f6f;
+}

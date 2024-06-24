@@ -178,3 +178,5 @@ ALTER TABLE cart
   ADD CONSTRAINT FK_item_TO_cart
     FOREIGN KEY (item_seq)
     REFERENCES item (seq);
+    
+alter table cart drop foreign key FK_item_TO_cart;
