@@ -10,7 +10,7 @@ require_once "include/header.php";
             <a href="addItem.php">상품등록</a>
         </li>
         <li>
-            <a href="modifyItem.php">상품수정</a>
+            <a href="modifyItemList.php">상품수정</a>
         </li>
     </ul>
         <div id="product-registration-container" class="content-container">
