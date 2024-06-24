@@ -41,6 +41,8 @@ commit;
 select * from item;
 delete from item where seq = 5;
 
+update item set deleted = 'Y' where seq = 7;
+
 select * from orders;
 
 -- 장바구니
