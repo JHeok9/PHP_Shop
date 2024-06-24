@@ -40,6 +40,7 @@ values(3, '기가막힌 쫀쫀이 양말', '801995393766375-e3ac3a4f-87d1-47a3-a
 commit;
 select * from item;
 
+select * from orders;
 
 -- 장바구니
 select * from cart;
