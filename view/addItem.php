@@ -10,7 +10,7 @@ require_once "include/header.php";
             <a href="addItem.php">상품등록</a>
         </li>
         <li>
-            <a href="modifyItem.php">상품수정</a>
+            <a href="modifyItemList.php">상품수정</a>
         </li>
     </ul>
         <div id="product-registration-container" class="content-container">
@@ -37,6 +37,9 @@ require_once "include/header.php";
 
                 <label for="product-image">설명 이미지</label>
                 <input type="file" name="img2" required>
+                
+                <label for="product-cnt">재고</label>
+                <input id="cnt" type="number" name="cnt" required>
                 
                 <button type="submit">등록</button>
             </form>

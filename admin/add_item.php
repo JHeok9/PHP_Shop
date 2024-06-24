@@ -6,6 +6,7 @@ $category_seq = mysqli_real_escape_string($conn, $_POST['category_seq']);
 $name = mysqli_real_escape_string($conn, $_POST['name']);
 $price = mysqli_real_escape_string($conn, $_POST['price']);
 $sale = mysqli_real_escape_string($conn, $_POST['sale']);
+$cnt = mysqli_real_escape_string($conn, $_POST['cnt']);
 
 // 파일 업로드 처리
 function img_url($img_file){
@@ -52,7 +53,7 @@ $img2 = $_FILES['img2'];
 $img1_url = img_url($img1);
 $img2_url = img_url($img2);
 
-$sql = "INSERT INTO item (category_seq, name, price, sale, img1, img2) VALUES ($category_seq, '$name', '$price', '$sale', '$img1_url', '$img2_url')";
+$sql = "INSERT INTO item (category_seq, name, price, sale, img1, img2, cnt) VALUES ($category_seq, '$name', '$price', '$sale', '$img1_url', '$img2_url', $cnt)";
 
 if (mysqli_query($conn, $sql)) {
     echo json_encode(['status' => 'success']);
