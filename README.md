@@ -11,13 +11,17 @@
 
 
 ### view
+- main.js : 서버통신 후 데이터 표출
 - index.php : 메인 페이지
 - login.php : 로그인 페이지
 - join.php : 회원가입 페이지
 - item.php : 상품 상세페이지
 - cart.php : 장바구니 페이지
 - order.php : 주문 페이지
-- main.js : 서버통신 후 데이터 표출
+- admin.php : 회원 주문목록
+- addItem.php : 상품등록
+- modifyItemList.php : 등록된 상품 목록
+- modifyItem.php : 상품수정
 
 
 ### Sever
@@ -42,3 +46,9 @@
 - addresses.php : 배송지 목록
 - orders.php : 주문목록
 - user_info.php 회원정보
+
+####
+- orders.php : 회원 주문목록
+- add_item.php : 상품등록
+- modify_item.php : 상품수정
+- delete_item.php : 상품삭제
