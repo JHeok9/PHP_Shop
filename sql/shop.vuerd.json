@@ -1,10 +1,10 @@
 {
   "canvas": {
     "version": "2.2.13",
-    "width": 3000,
-    "height": 3000,
-    "scrollTop": -1,
-    "scrollLeft": -689.9000000000001,
+    "width": 2000,
+    "height": 2000,
+    "scrollTop": -67,
+    "scrollLeft": -595,
     "zoomLevel": 0.9,
     "show": {
       "tableComment": true,
