@@ -6,7 +6,8 @@ $user_seq = mysqli_real_escape_string($conn, $_GET['user']);
 
 $sql = "select c.seq as cart_id, i.* 
 from cart c left join item i on c.item_seq = i.seq 
-where c.user_seq = $user_seq";
+where c.user_seq = $user_seq
+  and i.deleted = 'N'";
 
 try{
     $result = mysqli_query($conn, $sql);
