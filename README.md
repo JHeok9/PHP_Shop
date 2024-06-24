@@ -10,6 +10,14 @@
 - 로그인정보 JS Session Storage 저장
 
 
+### Database
+#### SQL
+- shop_erd.png : ERD 이미지
+- shop.vuerd.json : VSCode ERD
+- create_tabel.sql : 테이블 생성문
+- shop.sql : 쿼리
+
+
 ### view
 - main.js : 서버통신 후 데이터 표출
 - index.php : 메인 페이지
