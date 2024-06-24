@@ -92,7 +92,7 @@ CREATE TABLE orders
   addr_seq   int(11)      NOT NULL COMMENT '주소고유번호',
   order_date datetime     NOT NULL DEFAULT NOW() COMMENT '주문날짜',
   price      int(11)      NOT NULL COMMENT '주문가격',
-  req        varchar(255) ''     COMMENT '배송요청사항',
+  req        varchar(255) COMMENT '배송요청사항',
   status     varchar(255) NOT NULL DEFAULT '주문완료' COMMENT '주문현황',
   PRIMARY KEY (seq)
 ) COMMENT '주문';
