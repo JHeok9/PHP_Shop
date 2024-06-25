@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (window.location.pathname.includes('mypage.php')) {
             loadUserInfo();
+            addAddress();
         }
         if (window.location.pathname.includes('admin.php')) {
             loadAdminOrders();
@@ -621,6 +622,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             })
             .catch(error => console.error('Error loading addresses:', error));
+    }
+
+    // 배송지 추가
+    function addAddress(){
+        const addAddressForm = document.getElementById('add-address');
+        addAddressForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // 기본 폼 제출 동작을 방지
+
+            const user_seq = sessionStorage.getItem('user_id');
+
+            const formData = new FormData(this);
+            const jsonData = {};
+
+            formData.forEach((value, key) => {
+                jsonData[key] = value;
+            });
+            jsonData['user_seq'] = user_seq;
+
+            fetch('../mypage/add_address.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert("배송지추가 성공");
+                        location.reload(); // 페이지 새로고침
+                    } else {
+                        alert("111배송지추가 실패");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("2222배송지추가 실패");
+                });
+        });
+        
     }
 
 
