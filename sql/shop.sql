@@ -10,6 +10,8 @@ select * from address;
 delete from address where seq=1;
 ALTER TABLE address AUTO_INCREMENT = 1;
 
+update address set def = 'Y' where seq = 3;
+
 commit;
 
 select a.* 
