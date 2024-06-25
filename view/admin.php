@@ -22,8 +22,9 @@ require_once "include/header.php";
                     <col width="20%">
                     <col width="10%">
                     <col width="30%">
-                    <col width="15%">
-                    <col width="15%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
                 </colgroup>
                 <thead>
                     <th>주문번호</th>
@@ -33,6 +34,7 @@ require_once "include/header.php";
                     <th>배송주소</th>
                     <th>주문날짜</th>
                     <th>주문현황</th>
+                    <th>변경</th>
                 </thead>
                 <tbody id="admin-orders">
                     

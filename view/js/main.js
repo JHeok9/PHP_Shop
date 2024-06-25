@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             sessionStorage.removeItem('user_id');
             alert('로그아웃 성공');
-            window.location.reload();
+            window.location.href = '../view/index.php';
         });
     }
 
@@ -626,13 +626,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* -------------------------- 관리자 페이지 -------------------------- */
-    // 주문현황
+    // 주문목록
     function loadAdminOrders() {
         fetch(`../admin/orders.php`)
             .then(response => response.json())
             .then(data => {
                 const adminOrders = document.getElementById('admin-orders');
-                adminOrders.innerHTML = ''; // Clear existing content
+                adminOrders.innerHTML = '';
     
                 data.forEach(order => {
                     let html = '<tr>';
@@ -642,13 +642,49 @@ document.addEventListener('DOMContentLoaded', () => {
                     html += `<td>${order.price}</td>`;
                     html += `<td>${order.addr} ${order.addr_detail}</td>`;
                     html += `<td>${order.order_date}</td>`;
-                    html += `<td>${order.status}</td>`;
+                    html += `<td><select name="status" id="status-${order.seq}">`;
+                    html += `<option value="주문완료" ${order.status === '주문완료' ? 'selected' : ''}>주문완료</option>`;
+                    html += `<option value="배송중" ${order.status === '배송중' ? 'selected' : ''}>배송중</option>`;
+                    html += `<option value="배송완료" ${order.status === '배송완료' ? 'selected' : ''}>배송완료</option>`;
+                    html += `</select></td>`;
+                    html += `<td><button class="order-status-change" data-order-id="${order.seq}">변경</button></td>`;
                     html += '</tr>';
     
                     adminOrders.insertAdjacentHTML('beforeend', html);
                 });
+                document.querySelectorAll('.order-status-change').forEach(button => {
+                    button.addEventListener('click', orderStatusChange);
+                });
             })
             .catch(error => console.error('Error loading orders:', error));
+    }
+    // 주문현황 변경
+    function orderStatusChange(event) {
+        const orderSeq = event.target.getAttribute('data-order-id');
+        const statusSelect = document.getElementById(`status-${orderSeq}`);
+        const newStatus = statusSelect.value;
+    
+        const requestData = {
+            order_seq: orderSeq,
+            status: newStatus
+        };
+    
+        fetch(`../admin/update_order_status.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('주문 상태가 성공적으로 변경되었습니다.');
+                } else {
+                    alert('주문 상태 변경에 실패했습니다.');
+                }
+            })
+            .catch(error => console.error('Error updating order status:', error));
     }
 
     // 상품등록
