@@ -11,6 +11,8 @@
 
 
 ### Database
+![shop_erd](https://github.com/JHeok9/PHP_Shop/assets/121952545/037633aa-29f4-483f-ab6f-844359220c93)
+
 #### SQL
 - shop_erd.png : ERD 이미지
 - shop.vuerd.json : VSCode ERD
