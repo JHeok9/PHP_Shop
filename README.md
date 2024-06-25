@@ -52,11 +52,13 @@
 
 #### mypage
 - addresses.php : 배송지 목록
+- add_address.php : 배송지 추가
 - orders.php : 주문목록
-- user_info.php 회원정보
+- user_info.php : 회원정보
 
-####
+#### admin
 - orders.php : 회원 주문목록
 - add_item.php : 상품등록
 - modify_item.php : 상품수정
 - delete_item.php : 상품삭제
+- update_order_status.php : 주문현황 변경
