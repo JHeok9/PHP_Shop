@@ -33,8 +33,8 @@ try{
     $join_seq = mysqli_insert_id($conn);
 
     // 주소등록
-    $addr_sql = "insert into address(user_seq, name, addr_num, addr, addr_detail, phone_number)
-                values('$join_seq', '{$filtered['name']}', '{$filtered['addr_num']}', '{$filtered['addr']}', '{$filtered['addr_detail']}', '{$filtered['phone_number']}')";
+    $addr_sql = "insert into address(user_seq, name, addr_num, addr, addr_detail, phone_number, def)
+                values('$join_seq', '{$filtered['name']}', '{$filtered['addr_num']}', '{$filtered['addr']}', '{$filtered['addr_detail']}', '{$filtered['phone_number']}', 'Y')";
 
     $addr_result = mysqli_query($conn, $addr_sql);
 
