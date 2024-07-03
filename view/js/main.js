@@ -46,7 +46,49 @@ document.addEventListener('DOMContentLoaded', () => {
             addAddress();
         }
         if (window.location.pathname.includes('admin.php')) {
-            loadAdminOrders();
+            //loadAdminOrders();
+            
+            // 주문 목록을 업데이트하는 함수
+            function updateAdminOrders(data) {
+                const adminOrders = document.getElementById('admin-orders');
+                adminOrders.innerHTML = '';
+
+                data.forEach(order => {
+                    let html = '<tr>';
+                    html += `<td>${order.seq}</td>`;
+                    html += `<td>${order.id}</td>`;
+                    html += `<td>${order.name}</td>`;
+                    html += `<td>${order.price}</td>`;
+                    html += `<td>${order.addr} ${order.addr_detail}</td>`;
+                    html += `<td>${order.order_date}</td>`;
+                    html += `<td><select name="status" id="status-${order.seq}">`;
+                    html += `<option value="주문완료" ${order.status === '주문완료' ? 'selected' : ''}>주문완료</option>`;
+                    html += `<option value="배송중" ${order.status === '배송중' ? 'selected' : ''}>배송중</option>`;
+                    html += `<option value="배송완료" ${order.status === '배송완료' ? 'selected' : ''}>배송완료</option>`;
+                    html += `</select></td>`;
+                    html += `<td><button class="order-status-change" data-order-id="${order.seq}">변경</button></td>`;
+                    html += '</tr>';
+
+                    adminOrders.insertAdjacentHTML('beforeend', html);
+                });
+
+                document.querySelectorAll('.order-status-change').forEach(button => {
+                    button.addEventListener('click', orderStatusChange);
+                });
+            }
+
+            // SSE 설정
+            const eventSource = new EventSource('../admin/orders.php');
+
+            eventSource.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                updateAdminOrders(data);
+            };
+
+            eventSource.onerror = function(error) {
+                console.error('EventSource error:', error);
+            };
+
         }
         if (window.location.pathname.includes('addItem.php')) {
             addItem();
