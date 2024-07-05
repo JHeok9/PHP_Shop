@@ -8,7 +8,7 @@ $data = json_decode($input, true);
 
 $user_seq = mysqli_real_escape_string($conn, $data['user_seq']);
 
-$sql = "select * from user where seq = $user_seq";
+$sql = "select seq, id, name, nickname, phone_number, join_date from user where seq = $user_seq";
 
 $result = mysqli_query($conn,$sql);
 $response = array(
