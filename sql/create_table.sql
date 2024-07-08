@@ -21,7 +21,6 @@ CREATE TABLE JWT (
   `user_id` varchar(50) DEFAULT NULL,
   `refresh_token` varchar(500) DEFAULT NULL,
   `login_time` datetime DEFAULT NULL,
-  `auto_login` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`seq`),
   UNIQUE KEY `user_id` (`user_id`)
 );
