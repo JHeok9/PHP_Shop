@@ -116,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loginNavLink.addEventListener('click', function (event) {
             event.preventDefault();
             sessionStorage.removeItem('user_id');
+            sessionStorage.removeItem('token');
             alert('로그아웃 성공');
             window.location.href = '../view/index.php';
         });
@@ -145,6 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(data => {
                         if (data.status === 'success') {
                             sessionStorage.setItem('user_id', data.user_seq);
+                            sessionStorage.setItem('token', data.token);
                             alert('로그인 성공');
                             window.location.href = '../view/index.php';
                         } else {

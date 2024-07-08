@@ -2,6 +2,9 @@
 require_once "../common/dbconn.php";
 header('Content-Type: application/json'); // 응답 헤더를 JSON 형식으로 설정
 
+require_once "../lib/vendor/autoload.php";
+require_once "../common/jwt.php";
+
 // JSON 데이터 읽기
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
@@ -25,7 +28,8 @@ try{
             $response = array(
                 'status' => 'success', 
                 'message' => '로그인이 성공적으로 완료되었습니다.',
-                'user_seq' => $row['seq'] // 회원번호를 응답에 포함
+                'user_seq' => $row['seq'], // 회원번호를 응답에 포함
+                'token' => createJWT($conn,$row['id'])
             );
             echo json_encode($response);
             exit();
