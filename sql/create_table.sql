@@ -15,6 +15,17 @@ CREATE TABLE user
 ) COMMENT '회원';
 
 
+-- 유저 JWT토큰
+CREATE TABLE JWT (
+  `seq` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(50) DEFAULT NULL,
+  `refresh_token` varchar(500) DEFAULT NULL,
+  `login_time` datetime DEFAULT NULL,
+  `auto_login` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`seq`),
+  UNIQUE KEY `user_id` (`user_id`)
+);
+
 
 
 -- 주소테이블
