@@ -6,6 +6,7 @@ ALTER TABLE user AUTO_INCREMENT = 1;
 alter table user modify password VARCHAR(255);
 
 select * from jwt;
+-- delete from jwt where seq = 1;
 
 -- 주소 테이블
 select * from address;
